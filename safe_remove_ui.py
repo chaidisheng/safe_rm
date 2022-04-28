@@ -31,7 +31,8 @@ from safe_remove_common import SafeRemoveCommon
 from safe_remove_common import LoggingInfo
 
 LOG_LEVEL = logging.INFO
-LOG_FILE = " /var/log/safe_remove/safe_remove.log"
+# LOG_FILE = " /var/log/safe_remove/safe_remove.log"
+LOG_FILE = " /tmp/safe_remove/safe_remove/safe_remove.log"
 
 # 实例化共享类，进行调用
 safe_remove_common = SafeRemoveCommon()

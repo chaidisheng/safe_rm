@@ -26,7 +26,8 @@ import inspect
 from safe_remove_common import SafeRemoveCommon, LoggingInfo
 
 LOG_LEVEL = logging.INFO
-LOG_FILE = "/var/log/safe_remove/safe_remove.log"
+# LOG_FILE = "/var/log/safe_remove/safe_remove.log"
+LOG_FILE = "/tmp/safe_remove/safe_remove.log"
 
 # 实例化共享类，进行调用
 safe_remove_common = SafeRemoveCommon()
@@ -39,7 +40,7 @@ class SafeRemove(object):
         # 提供给用户的配置文件
         # safe_remove.cfg:  配置文件添加说明
         # safe_remove.d:    不同产品所选取的配置文件
-        self.usr_config_file = "/home/hikos/system/config/safe_remove.d/safe_remove_hikos.cfg"
+        self.usr_config_file = "/tmp/config/safe_remove.d/safe_remove.cfg"
         self.is_has_config_file(self.usr_config_file)
 
     def is_has_config_file(self, path):
