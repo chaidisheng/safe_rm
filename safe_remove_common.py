@@ -105,7 +105,7 @@ class SafeRemoveCommon(object):
         :param cmd:
         :return:
         """
-        with os.open(cmd, os.O_RDONLY) as fd:
+        with os.popen(cmd, 'r') as fd:
             return fd.readlines()
 
     @staticmethod

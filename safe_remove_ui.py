@@ -28,15 +28,15 @@ import datetime
 
 from safe_remove import SafeRemove
 from safe_remove_common import SafeRemoveCommon
+from safe_remove_common import LoggingInfo
 
 LOG_LEVEL = logging.INFO
-# LOG_FILE = "/home/hikos/system/log/hikos_safe_remove.log"
-LOG_FILE = " /var/log/safe_remove/hikos_safe_remove.log"
+LOG_FILE = " /var/log/safe_remove/safe_remove.log"
 
 # 实例化共享类，进行调用
 safe_remove_common = SafeRemoveCommon()
 # 初始化日志格式、日志路径、等级
-safe_remove_common.init_log_formate(LOG_LEVEL, LOG_FILE)
+LoggingInfo(LOG_LEVEL, LOG_FILE).init_log_format()
 
 
 class SafeRemoveUI(SafeRemove):

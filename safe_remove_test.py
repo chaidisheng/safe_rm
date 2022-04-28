@@ -23,7 +23,6 @@ import logging
 
 # import HTMLTestRunner
 # from unittestreport import TestRunner
-sys.path.append("/home/hikos/system/bin/")
 from safe_remove import SafeRemove
 from safe_remove_ui import SafeRemoveUI
 from safe_remove_common import SafeRemoveCommon
@@ -190,7 +189,7 @@ class MyTestCase(unittest.TestCase):
         :return:
         """
         safe_remove_common.fun_exec_command("mkdir -p /home/test/mount_opt")
-        safe_remove_common.fun_exec_command("mount /dev/mapper/centos_hikvisionos-opt /home/test/mount_opt")
+        safe_remove_common.fun_exec_command("mount /dev/mapper/centos-opt /home/test/mount_opt")
         ret_code_del = safe_remove.execute_delete(args=Args(["/opt", "/home/test/mount_opt"]))
         self.assertEqual(ret_code_del, 1)
         safe_remove_common.fun_exec_command("umount /home/test/mount_opt")

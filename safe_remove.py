@@ -23,16 +23,15 @@ import pathlib
 import argparse
 import inspect
 
-from safe_remove_common import SafeRemoveCommon
+from safe_remove_common import SafeRemoveCommon, LoggingInfo
 
 LOG_LEVEL = logging.INFO
-# LOG_FILE = "/home/hikos/system/log/hikos_safe_remove.log"
-LOG_FILE = "/var/log/safe_remove/hikos_safe_remove.log"
+LOG_FILE = "/var/log/safe_remove/safe_remove.log"
 
 # 实例化共享类，进行调用
 safe_remove_common = SafeRemoveCommon()
 # 初始化日志格式、日志路径、等级
-safe_remove_common.init_log_formate(LOG_LEVEL, LOG_FILE)
+LoggingInfo(LOG_LEVEL, LOG_FILE).init_log_format()
 
 
 class SafeRemove(object):
@@ -92,17 +91,23 @@ class SafeRemove(object):
     def get_mount_points(self):
         """
         获取系统所有的挂载点及其对应的文件系统
+        * mount -v
+        * /etc/mtab
         :return: 挂载点，文件系统
         """
         logging.info('step into method: {}'.format(self.get_method_name()))
-        cmd = "mount -v"
-        ret_code, ret_str = safe_remove_common.fun_exec_command(cmd)
-        if 0 != ret_code:
-            logging.error("get mount points fail for {}".format(ret_str))
-        lines = ret_str.decode('utf-8').split('\n')
-        points = map(lambda line: line.split()[2], [line for line in lines if line])
-        filesystem = map(lambda line: line.split()[0], [line for line in lines if line])
-        return points, filesystem
+        with open("/etc/mtab", "r") as f:
+            mounts_list = [line.strip('\n') for line in f.readlines()]
+            points = map(lambda line: line.split()[1], mounts_list)
+            file_system = map(lambda line: line.split()[0], mounts_list)
+        # cmd = "mount -v"
+        # ret_code, ret_str = safe_remove_common.fun_exec_command(cmd)
+        # if 0 != ret_code:
+        #     logging.error("get mount points fail for {}".format(ret_str))
+        # lines = ret_str.decode('utf-8').split('\n')
+        # points = map(lambda line: line.split()[2], [line for line in lines if line])
+        # filesystem = map(lambda line: line.split()[0], [line for line in lines if line])
+        return points, file_system
 
     def filter_path(self, delete_paths, all_paths):
         """
