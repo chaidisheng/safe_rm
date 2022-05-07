@@ -92,8 +92,7 @@ class SafeRemove(object):
     def get_mount_points(self):
         """
         获取系统所有的挂载点及其对应的文件系统
-        * mount -v
-        * /etc/mtab
+        * 加锁读取/etc/mtab
         :return: 挂载点，文件系统
         """
         logging.info('step into method: {}'.format(self.get_method_name()))
@@ -101,13 +100,6 @@ class SafeRemove(object):
             mounts_list = [line.strip('\n') for line in f.readlines()]
             points = map(lambda line: line.split()[1], mounts_list)
             file_system = map(lambda line: line.split()[0], mounts_list)
-        # cmd = "mount -v"
-        # ret_code, ret_str = safe_remove_common.fun_exec_command(cmd)
-        # if 0 != ret_code:
-        #     logging.error("get mount points fail for {}".format(ret_str))
-        # lines = ret_str.decode('utf-8').split('\n')
-        # points = map(lambda line: line.split()[2], [line for line in lines if line])
-        # filesystem = map(lambda line: line.split()[0], [line for line in lines if line])
         return points, file_system
 
     def filter_path(self, delete_paths, all_paths):
