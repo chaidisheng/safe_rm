@@ -31,7 +31,8 @@ safe_remove = SafeRemove()
 safe_remove_ui = SafeRemoveUI()
 safe_remove_common = SafeRemoveCommon()
 record_lines = ["success"]
-file_path = "/home/hikos/system/bin/auto_test/safe_remove_auto_test.log"
+# file_path = "/home/hikos/system/bin/auto_test/safe_remove_auto_test.log"
+file_path = "/tmp/auto_test/safe_remove_auto_test.log"
 
 
 class Args:
